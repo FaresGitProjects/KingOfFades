@@ -2,32 +2,124 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer utilities {
+  .rhombus-shape {
+    clip-path: polygon(
+      25% 0%,
+      100% 0%,
+      100% 75%,
+      75% 100%,
+      25% 100%,
+      0% 100%,
+      0% 25%
+    );
+  }
+}
+.rdp-nav_button:hover {
+  @apply text-black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.rdp-day:hover {
+  @apply text-black; /* Change 'blue-500' to your desired hover text color */
+}
+.rdp-selected-color {
+  @apply bg-white;
+}
+
+.dark-gradient-theme {
+  background-image: radial-gradient(
+      circle at 10% 20%,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(34, 34, 34, 0.8) 90.2%
+    ),
+    radial-gradient(
+      circle at 100% 10%,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(14, 12, 12, 1) 30.2%
+    ),
+    radial-gradient(
+      circle at 60% 10%,
+      rgba(5, 5, 5, 0.2) 0%,
+      rgba(34, 32, 32, 0.8) 90.2%
+    );
+}
+
+.fade-gradient-theme {
+  background-image: radial-gradient(
+    circle at 100% 100%,
+    rgb(255, 255, 255) 0%,
+    rgb(255, 255, 255) 30%,
+    rgba(34, 34, 34, 0.8) 90.2%
+  );
+}
+
+.haircut::before {
+  position: absolute;
+  content: "(";
+  font-size: x-large;
+  top: 50%;
+  right: 50%;
+  opacity: 0;
+  transform: translate(-15%, -60%) rotate(80deg);
+}
+
+.haircut::after {
+  position: absolute;
+  content: "";
+  background-color: white;
+  top: 100%;
+  right: 100%;
+  width: 100px;
+  /* height: 1px; */
+  rotate: 80deg;
+  /* transform: translateY(50%); */
+  translate: -15% -60%;
+  /* transform: translateY(00px); */
+  opacity: 0.2;
+  clip-path: polygon(50% 0, 52% 50%, 50% 100%, 48% 50%);
+}
+
+.haircut:hover::after {
+  animation: slice 0.5s forwards ease-in-out;
+}
+
+.haircut:hover::before {
+  animation: snipOff 1s forwards ease-in-out;
+}
+
+@keyframes snipOff {
+  0% {
+    opacity: 1;
+    transform: translate(-15%, -60%) rotate(80deg);
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(190%, 180%) rotate(440deg) scale(0.2);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@keyframes slice {
+  0% {
+    opacity: 1;
+    transform: translateY(-60%);
+    height: 0px;
+  }
+  25% {
+    opacity: 0.8;
+    transform: translateY(-105%);
+    height: 110px;
+  }
+  75% {
+    opacity: 0.9;
+    transform: translateY(-95%);
+    height: 95px;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-100%);
+    height: 100px;
   }
 }
